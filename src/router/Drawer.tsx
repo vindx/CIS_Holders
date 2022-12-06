@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet } from 'react-native'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 
-import ServicesList from '~scenes/ServicesList'
+import About from '~scenes/About'
 import { ABOUT } from '~constants/navigation'
 
 import BottomTabs from './BottomTabs'
@@ -25,7 +25,7 @@ const Drawer = () => {
         drawerStyle: styles.drawer,
       }}>
       <Screen name="Home" component={BottomTabs} />
-      <Screen name={ABOUT} component={ServicesList} />
+      <Screen name={ABOUT} component={About} />
     </Navigator>
   )
 }

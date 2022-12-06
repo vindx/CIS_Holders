@@ -1,29 +1,19 @@
-import { call, takeLatest } from 'redux-saga/effects'
-import firestore, {
-  FirebaseFirestoreTypes,
-} from '@react-native-firebase/firestore' // FirebaseFirestoreTypes,
+import { IService } from '~types'
+import { call, put, takeLatest } from 'redux-saga/effects'
 
 import { SERVICES_REQUEST } from '~constants/actions'
-import { SERVICES_COLLECTION } from '~constants/firestore'
-// import { servicesResponse, servicesResponseFail } from '~store/actions'
+import { servicesResponse, servicesResponseFail } from '~store/actions'
 
-import { IService } from '~types'
+import { getServicesList } from '~api'
 
-const getServicesList = async () =>
-  firestore().collection<IService[]>(SERVICES_COLLECTION).get()
-
-function* watchGetServices() {
-  // const { pagination, filters } = action?.payload
-
+function* watchGetServices(): Generator<unknown, any, IService[]> {
   try {
-    console.log('SAGA watchGetServices')
-    const snapshot: unknown = yield call(getServicesList)
-    console.log(
-      '🚀 ~ ',
-      snapshot.docs.map(doc => doc.data()),
-    )
+    const services = yield call(getServicesList)
+
+    yield put(servicesResponse(services))
   } catch (error) {
-    console.log('🚀 ~ function*watchGetServices ~ error', error)
+    // @todo error handling
+    yield put(servicesResponseFail({ status: 500, message: 'Some error' }))
   }
 }
 

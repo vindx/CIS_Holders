@@ -1,29 +1,66 @@
-import React, { useEffect } from 'react'
+import React, { FC, useEffect } from 'react'
+import { SectionList } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
-import styled from 'styled-components/native'
 
 import MainView from '~styles/MainView'
 import { servicesRequest } from '~store/actions'
-import { servicesStateSelector } from '~store/selectors'
 
-const StyledText = styled.Text`
-  color: palevioletred;
-`
+import {
+  servicesStateSelector,
+  servicesSectionListSelector,
+} from '~store/selectors'
+
+import { IService, IServiceType } from '~types'
+
+import { ErrorText, HeaderText, ItemText, LoadingText, Wrapper } from './styles'
 
 const ServicesList = () => {
   const dispatch = useDispatch()
-  // const { isInitialized, isLoading, error, list } = useSelector(
-  //   servicesStateSelector,
-  // )
-  // console.log('🚀 ~ ', isInitialized, isLoading, error, list)
+  const { isLoading, error } = useSelector(servicesStateSelector)
+  const list = useSelector(servicesSectionListSelector)
 
   useEffect(() => {
     dispatch(servicesRequest())
   }, [dispatch])
 
+  if (isLoading) {
+    return (
+      <MainView>
+        <Wrapper>
+          <LoadingText>Loading ...</LoadingText>
+        </Wrapper>
+      </MainView>
+    )
+  }
+
+  if (error) {
+    return (
+      <MainView>
+        <Wrapper>
+          <ErrorText>{error?.message}</ErrorText>
+        </Wrapper>
+      </MainView>
+    )
+  }
+
+  const Item: FC<{ serviceData: IService }> = ({ serviceData }) => (
+    <ItemText>{serviceData.name}</ItemText> // @todo add more info
+  )
+
+  const Header: FC<{ typeData: IServiceType }> = ({ typeData }) => (
+    <HeaderText>{typeData.name}</HeaderText>
+  )
+
   return (
     <MainView>
-      <StyledText>ServicesList</StyledText>
+      <SectionList
+        sections={list}
+        keyExtractor={item => item.id}
+        renderItem={item => <Item serviceData={item.item} />}
+        renderSectionHeader={({ section: { type } }) => (
+          <Header typeData={type} />
+        )}
+      />
     </MainView>
   )
 }

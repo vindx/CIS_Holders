@@ -4,7 +4,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { StyleSheet } from 'react-native'
 import { ADD_SERVICE, MAP, SERVICES_LIST } from '~constants/navigation'
 
+import AddService from '~scenes/AddService'
 import ServicesList from '~scenes/ServicesList'
+import ServicesMap from '~scenes/ServicesMap'
 
 const styles = StyleSheet.create({
   addIcon: {},
@@ -36,7 +38,7 @@ const BottomTabs = () => {
       />
       <Screen
         name={ADD_SERVICE}
-        component={ServicesList}
+        component={AddService}
         options={{
           tabBarLabel: '',
           tabBarIcon: ({ color, size, focused }) => (
@@ -51,7 +53,7 @@ const BottomTabs = () => {
       />
       <Screen
         name={MAP}
-        component={ServicesList}
+        component={ServicesMap}
         options={{
           tabBarLabel: MAP,
           tabBarIcon: ({ color, size, focused }) => (
