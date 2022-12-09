@@ -6,10 +6,9 @@ export const ErrorText = styled.Text`
 `
 
 export const Wrapper = styled.View`
-  display: flex;
+  flex: 1;
   align-items: center;
   justify-content: center;
-  height: 100%;
 `
 
 export const LoadingText = styled.Text`
