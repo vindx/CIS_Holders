@@ -1,10 +1,9 @@
-import { IService } from '~types'
 import { call, put, takeLatest } from 'redux-saga/effects'
 
 import { SERVICES_REQUEST } from '~constants/actions'
 import { servicesResponse, servicesResponseFail } from '~store/actions'
-
 import { getServicesList } from '~api'
+import { IService } from '~types'
 
 function* watchGetServices(): Generator<unknown, any, IService[]> {
   try {

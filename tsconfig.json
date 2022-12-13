@@ -10,6 +10,7 @@
     "skipLibCheck": true, /* Skip type checking all .d.ts files. */
     "types": [
       "@types/styled-components-react-native"
-    ]
+    ],
+    "typeRoots": ["./src/types"]
   }
 }

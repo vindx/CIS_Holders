@@ -3,7 +3,7 @@ export interface IServiceType {
   name: string
 }
 
-interface IAddress {
+export interface IAddress {
   latitude: number
   longitude: number
 }
@@ -11,8 +11,8 @@ interface IAddress {
 export interface IService {
   id: string
   name: string
-  description: string
-  type?: IServiceType
+  description?: string
+  type: IServiceType
   address: IAddress
-  attach: null | any
+  imageUrl?: string
 }

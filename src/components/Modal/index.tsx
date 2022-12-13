@@ -1,5 +1,11 @@
 import React, { FC } from 'react'
-import { Modal as ModalRN, Text, Pressable, View } from 'react-native'
+import {
+  Modal as ModalRN,
+  Pressable,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native'
 
 import styles from './styles'
 
@@ -18,11 +24,11 @@ const Modal: FC<IModalProps> = ({ isOpen = false, onClose, children }) => (
     <View style={styles.wrapper}>
       <View style={styles.modalView}>
         {children}
-        <Pressable
+        <TouchableOpacity
           style={[styles.button, styles.buttonClose]}
           onPress={onClose}>
           <Text style={styles.textStyle}>Закрыть</Text>
-        </Pressable>
+        </TouchableOpacity>
       </View>
       <Pressable style={styles.background} onPress={onClose} />
     </View>
