@@ -5,3 +5,9 @@ export interface IFormValues
   typeId: string
   rawImagePath?: string
 }
+
+export interface ICreateService {
+  formValues: IFormValues
+  onSuccessCallback?: () => void
+  onErrorCallback?: () => void
+}

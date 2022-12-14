@@ -1,11 +1,11 @@
 import { call, put, takeLatest } from 'redux-saga/effects'
 
-import { SERVICES_REQUEST } from '~constants/actions'
+import { CREATE_SERVICE_REQUEST } from '~constants/actions'
 import { servicesResponse, servicesResponseFail } from '~store/actions'
 import { getServicesListAPI } from '~api'
 import { IService } from '~types'
 
-function* watchGetServices(): Generator<unknown, any, IService[]> {
+function* watchAddService(): Generator<unknown, any, IService[]> {
   try {
     const services = yield call(getServicesListAPI)
 
@@ -17,7 +17,7 @@ function* watchGetServices(): Generator<unknown, any, IService[]> {
 }
 
 function* root() {
-  yield takeLatest(SERVICES_REQUEST, watchGetServices)
+  yield takeLatest(CREATE_SERVICE_REQUEST, watchAddService)
 }
 
 export default root

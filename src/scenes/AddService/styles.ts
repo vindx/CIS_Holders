@@ -9,7 +9,7 @@ export default StyleSheet.create({
     fontSize: 16,
   },
   button: {
-    marginTop: 40,
+    marginVertical: 40,
     color: 'white',
   },
   container: {

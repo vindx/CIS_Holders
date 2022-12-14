@@ -10,7 +10,6 @@ import {
   View,
 } from 'react-native'
 
-// import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'
 import Ionic from 'react-native-vector-icons/Ionicons'
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps'
 import { useForm, Controller } from 'react-hook-form'
@@ -22,17 +21,26 @@ import {
   launchImageLibrary,
 } from 'react-native-image-picker'
 
-// import { GOOGLE_PLACES_API } from '@env'
 import Picker from '~components/Picker'
+import ProgressPanel from '~components/ProgressPanel'
 import { serviceTypesPickerSelector } from '~store/selectors'
-import { serviceTypesRequest } from '~store/actions'
+import { servicesRequest, serviceTypesRequest } from '~store/actions'
 
 import styles from './styles'
 import { IFormValues } from './types'
+import { createService } from './utils'
+
+const additingInitState = {
+  init: false,
+  inProgress: false,
+  withError: false,
+  succeed: false,
+}
 
 const AddService = () => {
   const dispatch = useDispatch()
   const [isMap, setIsMap] = useState(false)
+  const [additingState, setAdditingState] = useState(additingInitState)
   const serviceTypes = useSelector(serviceTypesPickerSelector)
 
   useEffect(() => {
@@ -78,7 +86,35 @@ const AddService = () => {
   }
 
   const onSubmit = (data: IFormValues) => {
-    console.log('data', data)
+    setAdditingState(prevState => ({
+      ...prevState,
+      init: true,
+      inProgress: true,
+    }))
+
+    const resetPanel = () =>
+      setTimeout(() => setAdditingState(additingInitState), 2000)
+
+    createService({
+      formValues: data,
+      onSuccessCallback() {
+        setAdditingState(prevState => ({
+          ...prevState,
+          inProgress: false,
+          succeed: true,
+        }))
+        dispatch(servicesRequest())
+        resetPanel()
+      },
+      onErrorCallback() {
+        setAdditingState(prevState => ({
+          ...prevState,
+          inProgress: false,
+          withError: true,
+        }))
+        resetPanel()
+      },
+    })
   }
 
   return (
@@ -265,6 +301,7 @@ const AddService = () => {
                   </View>
                 )}
                 <TouchableOpacity
+                  // disabled
                   style={styles.photoButton}
                   onPress={handleOpenGallery}>
                   <Ionic name="image-outline" size={40} color="#81b0ff" />
@@ -284,6 +321,14 @@ const AddService = () => {
           />
         </View>
       </ScrollView>
+
+      {additingState.init && (
+        <ProgressPanel
+          inProgress={additingState.inProgress}
+          succeed={additingState.succeed}
+          withError={additingState.withError}
+        />
+      )}
     </>
   )
 }

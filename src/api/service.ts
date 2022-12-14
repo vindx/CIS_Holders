@@ -1,13 +1,14 @@
-// import { IServiceTypeFB } from './../types/firebase'
-// import { SERVICE_TYPES_COLLECTION } from './../constants/firestore/collections'
 import firestore from '@react-native-firebase/firestore'
 
-import { SERVICES_COLLECTION } from '~constants/firestore'
-import { IServiceFB, IService } from '~types'
+import {
+  SERVICES_COLLECTION,
+  SERVICE_TYPES_COLLECTION,
+} from '~constants/firestore'
+import { IServiceFB, IService, IServiceTypeFB } from '~types'
 
-import { getServiceTypeByRef } from './'
+import { getServiceTypeByRefAPI } from './'
 
-export const getServicesList = async () => {
+export const getServicesListAPI = async () => {
   const snapshot = await firestore()
     .collection<IServiceFB>(SERVICES_COLLECTION)
     .get()
@@ -18,7 +19,7 @@ export const getServicesList = async () => {
         ...doc.data(),
         address: doc.data().address.toJSON(),
         id: doc.id,
-        type: await getServiceTypeByRef(doc.data().type),
+        type: await getServiceTypeByRefAPI(doc.data().type),
       }
 
       return data
@@ -28,18 +29,27 @@ export const getServicesList = async () => {
   return services
 }
 
-// const addService = async (typeId: string) => {
-//   const typeRef = await firestore()
-//     .collection<IServiceTypeFB>(SERVICE_TYPES_COLLECTION)
-//     .doc(typeId)
+interface ICreateServiceAPI extends Omit<IService, 'id' | 'type'> {
+  typeId: string
+}
 
-//   await firestore()
-//     .collection<IServiceFB>(SERVICES_COLLECTION)
-//     .add({
-//       address: new firestore.GeoPoint(50, 50),
-//       attach: null,
-//       description: 'description',
-//       name: 'name',
-//       type: typeRef,
-//     })
-// }
+export const createServiceAPI = async (service: ICreateServiceAPI) => {
+  const typeRef = await firestore()
+    .collection<IServiceTypeFB>(SERVICE_TYPES_COLLECTION)
+    .doc(service.typeId)
+
+  const address = new firestore.GeoPoint(
+    Number(service.address.latitude),
+    Number(service.address.longitude),
+  )
+
+  return firestore()
+    .collection<IServiceFB>(SERVICES_COLLECTION)
+    .add({
+      address,
+      description: service.description || '',
+      imageUrl: service.imageUrl || '',
+      name: service.name,
+      type: typeRef,
+    })
+}

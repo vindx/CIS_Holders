@@ -3,7 +3,7 @@ import firestore from '@react-native-firebase/firestore'
 import { SERVICE_TYPES_COLLECTION } from '~constants/firestore'
 import { IServiceFB, IServiceTypeFB, IServiceType } from '~types'
 
-export const getServiceTypesList = async () => {
+export const getServiceTypesListAPI = async () => {
   const snapshot = await firestore()
     .collection<IServiceTypeFB>(SERVICE_TYPES_COLLECTION)
     .get()
@@ -16,7 +16,7 @@ export const getServiceTypesList = async () => {
   return result
 }
 
-export const getServiceTypeByRef = async (
+export const getServiceTypeByRefAPI = async (
   typeRef?: IServiceFB['type'],
 ): Promise<IServiceType> => {
   const emptyServiceType = { id: '', name: '' }

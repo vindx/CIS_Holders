@@ -5,8 +5,8 @@ export interface IServiceTypeFB {
 }
 export interface IServiceFB {
   address: FirebaseFirestoreTypes.GeoPoint
-  attach: null
-  description: string
+  imageUrl?: string
+  description?: string
   name: string
   type: FirebaseFirestoreTypes.DocumentReference<IServiceTypeFB>
 }
