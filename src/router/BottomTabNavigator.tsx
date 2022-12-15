@@ -1,27 +1,62 @@
-import React from 'react'
+import React, { FC } from 'react'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+
+import {
+  BottomTabHeaderProps,
+  createBottomTabNavigator,
+} from '@react-navigation/bottom-tabs'
+
 import Ionic from 'react-native-vector-icons/Ionicons'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { StyleSheet } from 'react-native'
-import { ADD_SERVICE, MAP, SERVICES_LIST } from '~constants/navigation'
 
 import AddService from '~scenes/AddService'
 import ServicesList from '~scenes/ServicesList'
 import ServicesMap from '~scenes/ServicesMap'
+import { ADD_SERVICE, MAP, SERVICES_LIST } from '~constants/navigation'
 
 const styles = StyleSheet.create({
-  addIcon: {},
+  addIcon: {
+    marginTop: 5,
+  },
+  headerContainer: {
+    backgroundColor: 'gray',
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 10,
+    height: 50,
+  },
+  headerText: {
+    fontSize: 20,
+    marginLeft: 10,
+  },
 })
 
-const BottomTabs = () => {
+interface ICustomHeaderProps extends BottomTabHeaderProps {
+  toggleDrawer: () => void
+}
+
+const CustomHeader: FC<ICustomHeaderProps> = props => {
+  return (
+    <View style={styles.headerContainer}>
+      <TouchableOpacity onPress={props.toggleDrawer}>
+        <Ionic name="menu-outline" size={32} />
+      </TouchableOpacity>
+      <Text style={styles.headerText}>{props.route.name}</Text>
+    </View>
+  )
+}
+
+const BottomTabNavigator = () => {
   const { Navigator, Screen } = createBottomTabNavigator()
 
   return (
     <Navigator
       initialRouteName={SERVICES_LIST}
-      screenOptions={{
+      screenOptions={({ navigation }) => ({
         tabBarActiveTintColor: 'gray',
-        // header: () => null,
-      }}>
+        header: props => (
+          <CustomHeader {...props} toggleDrawer={navigation.toggleDrawer} />
+        ),
+      })}>
       <Screen
         name={SERVICES_LIST}
         component={ServicesList}
@@ -69,4 +104,4 @@ const BottomTabs = () => {
   )
 }
 
-export default BottomTabs
+export default BottomTabNavigator

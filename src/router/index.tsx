@@ -1,12 +1,12 @@
 import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 
-import Drawer from './Drawer'
+import DrawerNavigator from './DrawerNavigator'
 
 const Router = () => {
   return (
     <NavigationContainer>
-      <Drawer />
+      <DrawerNavigator />
     </NavigationContainer>
   )
 }
