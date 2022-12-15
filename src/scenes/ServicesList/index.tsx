@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC, useCallback, useEffect } from 'react'
 import { SectionList } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -12,26 +12,21 @@ import {
 
 import { IService, IServiceType } from '~types'
 
-import { ErrorText, HeaderText, ItemText, LoadingText, Wrapper } from './styles'
+import { ErrorText, HeaderText, ItemText, Wrapper } from './styles'
 
 const ServicesList = () => {
   const dispatch = useDispatch()
   const { isLoading, error } = useSelector(servicesStateSelector)
   const list = useSelector(servicesSectionListSelector)
 
-  useEffect(() => {
-    dispatch(servicesRequest())
-  }, [dispatch])
+  const loadServicesList = useCallback(
+    () => dispatch(servicesRequest()),
+    [dispatch],
+  )
 
-  if (isLoading) {
-    return (
-      <MainView>
-        <Wrapper>
-          <LoadingText>Loading ...</LoadingText>
-        </Wrapper>
-      </MainView>
-    )
-  }
+  useEffect(() => {
+    loadServicesList()
+  }, [loadServicesList])
 
   if (error) {
     return (
@@ -60,6 +55,8 @@ const ServicesList = () => {
         renderSectionHeader={({ section: { type } }) => (
           <Header typeData={type} />
         )}
+        refreshing={isLoading}
+        onRefresh={loadServicesList}
       />
     </MainView>
   )

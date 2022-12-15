@@ -4,8 +4,8 @@ export interface IServiceType {
 }
 
 export interface IAddress {
-  latitude: number | string
-  longitude: number | string
+  latitude: number
+  longitude: number
 }
 
 export interface IService {
