@@ -251,30 +251,6 @@ const AddService = () => {
             },
           }}
         />
-        {/* @todo add posibility to input readable address */}
-        {/* <GooglePlacesAutocomplete
-          styles={{
-            container: {
-              backgroundColor: 'gray',
-            },
-            textInput: { color: 'black' },
-            listView: {
-              backgroundColor: 'red',
-              backfaceVisibility: 'visible',
-            },
-          }}
-          placeholder="Type a place"
-          textInputProps={{ placeholderTextColor: 'gray' }}
-          query={{ key: GOOGLE_PLACES_API }}
-          fetchDetails={true}
-          onPress={(data, details) => {
-            console.log('-------data----------', data)
-            console.log('--------details---------', details?.geometry.location)
-          }}
-          onFail={error => console.log(error)}
-          onNotFound={() => console.log('no results')}
-          listViewDisplayed={false}
-        /> */}
 
         <Controller
           control={control}

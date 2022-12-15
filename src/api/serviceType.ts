@@ -19,7 +19,11 @@ export const getServiceTypesListAPI = async () => {
 export const getServiceTypeByRefAPI = async (
   typeRef?: IServiceFB['type'],
 ): Promise<IServiceType> => {
-  const emptyServiceType = { id: '', name: '' }
+  const emptyServiceType: IServiceType = {
+    id: '',
+    name: '',
+    machineValue: null,
+  }
   if (!typeRef) {
     return emptyServiceType
   }
@@ -33,6 +37,7 @@ export const getServiceTypeByRefAPI = async (
   const data: IServiceType = {
     id: docSnapshot.id,
     name: docSnapshot.data()?.name ?? '',
+    machineValue: docSnapshot.data()?.machineValue || null,
   }
 
   return data

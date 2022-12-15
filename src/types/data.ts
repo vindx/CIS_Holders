@@ -1,6 +1,9 @@
+import { TServiceTypeMachineValue } from '~constants/firestore'
+
 export interface IServiceType {
   id: string
   name: string
+  machineValue: TServiceTypeMachineValue
 }
 
 export interface IAddress {

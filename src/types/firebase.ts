@@ -1,7 +1,10 @@
 import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore'
 
+import { TServiceTypeMachineValue } from '~constants/firestore'
+
 export interface IServiceTypeFB {
   name: string
+  machineValue: TServiceTypeMachineValue
 }
 export interface IServiceFB {
   address: FirebaseFirestoreTypes.GeoPoint

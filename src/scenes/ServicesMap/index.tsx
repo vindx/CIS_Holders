@@ -4,6 +4,7 @@ import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps'
 import { useSelector } from 'react-redux'
 
 import Modal from '~components/Modal'
+import getMarkerIcon from '~utils/getMarkerIcon'
 import { IService } from '~types'
 import { servicesStateSelector } from '~store/selectors'
 
@@ -50,8 +51,9 @@ const ServicesMap = () => {
             coordinate={item.address}
             title={item.name}
             description="подробнее"
-            onCalloutPress={() => onHandleCalloutPress(item)}
-          />
+            onCalloutPress={() => onHandleCalloutPress(item)}>
+            {getMarkerIcon(item.type.machineValue)}
+          </Marker>
         ))}
       </MapView>
 
