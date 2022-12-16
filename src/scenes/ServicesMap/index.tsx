@@ -1,12 +1,11 @@
-import React, { useState } from 'react'
-import { ActivityIndicator, Text, View } from 'react-native'
+import React from 'react'
+import { ActivityIndicator, View } from 'react-native'
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps'
 import { useSelector } from 'react-redux'
 
-import Modal from '~components/Modal'
-import getMarkerIcon from '~utils/getMarkerIcon'
-import { IService } from '~types'
+import { getMarkerIcon } from '~utils/helpers'
 import { servicesStateSelector } from '~store/selectors'
+import { useServiceModal } from '~context/ServiceModal'
 
 import styles from './styles'
 
@@ -18,25 +17,8 @@ const initialRegion = {
 }
 
 const ServicesMap = () => {
-  const [modalState, setModalState] = useState({
-    isOpened: false,
-    data: {} as IService,
-  })
   const { isLoading, list } = useSelector(servicesStateSelector)
-
-  const handleCloseModal = () =>
-    setModalState(prevState => ({
-      ...prevState,
-      isOpened: false,
-    }))
-
-  const onHandleCalloutPress = (service: IService) => {
-    setModalState(prevState => ({
-      ...prevState,
-      data: service,
-      isOpened: true,
-    }))
-  }
+  const { setModalData } = useServiceModal()
 
   return (
     <View style={styles.container}>
@@ -51,7 +33,7 @@ const ServicesMap = () => {
             coordinate={item.address}
             title={item.name}
             description="подробнее"
-            onCalloutPress={() => onHandleCalloutPress(item)}>
+            onCalloutPress={() => setModalData(item)}>
             {getMarkerIcon(item.type.machineValue)}
           </Marker>
         ))}
@@ -63,13 +45,6 @@ const ServicesMap = () => {
         size={40}
         color="gray"
       />
-
-      <Modal isOpen={modalState.isOpened} onClose={handleCloseModal}>
-        <Text style={styles.text}>{modalState.data.name}</Text>
-        <Text style={styles.text}>{modalState.data.description}</Text>
-        <Text style={styles.text}>{modalState.data.type?.id}</Text>
-        <Text style={styles.text}>{modalState.data.type?.name}</Text>
-      </Modal>
     </View>
   )
 }

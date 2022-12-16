@@ -3,10 +3,13 @@ import { Provider } from 'react-redux'
 
 import Router from '~router'
 import store from '~store'
+import { ServiceModalProvider } from '~context/ServiceModal'
 
 const App = () => (
   <Provider store={store}>
-    <Router />
+    <ServiceModalProvider>
+      <Router />
+    </ServiceModalProvider>
   </Provider>
 )
 

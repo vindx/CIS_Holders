@@ -1,4 +1,5 @@
 import styled from 'styled-components/native'
+import { StyleSheet } from 'react-native'
 
 export const ErrorText = styled.Text`
   color: red;
@@ -27,6 +28,13 @@ export const HeaderText = styled.Text`
 export const ItemText = styled.Text`
   color: black;
   font-size: 20px;
-  padding-horizontal: 20px;
-  padding-bottom: 20px;
 `
+
+export const styles = StyleSheet.create({
+  itemWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginHorizontal: 20,
+    marginBottom: 20,
+  },
+})

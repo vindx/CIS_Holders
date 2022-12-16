@@ -7,9 +7,6 @@ export default StyleSheet.create({
   map: {
     ...StyleSheet.absoluteFillObject,
   },
-  text: {
-    color: 'red',
-  },
   loader: {
     position: 'absolute',
     bottom: 20,
