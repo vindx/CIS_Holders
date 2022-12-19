@@ -7,7 +7,7 @@ import {
 import { useNavigation } from '@react-navigation/native'
 import Ionic from 'react-native-vector-icons/Ionicons'
 
-import About from '~scenes/About'
+import AboutUs from '~scenes/AboutUs'
 import { ABOUT, ROOT_NAVIGATOR } from '~constants/navigation'
 import { TRootNavigatorList } from '~router/types'
 
@@ -21,7 +21,7 @@ const CustomHeaderLeft = () => {
 
   return (
     <TouchableOpacity style={styles.goBackButton} onPress={handleGoBackClick}>
-      <Ionic color="gray" name="chevron-back-outline" size={28} />
+      <Ionic color="white" name="chevron-back-outline" size={28} />
     </TouchableOpacity>
   )
 }
@@ -33,8 +33,14 @@ const AboutStackNavigator = () => {
     <Navigator
       screenOptions={{
         headerLeft: () => <CustomHeaderLeft />,
+        headerStyle: {
+          backgroundColor: '#493d8a',
+        },
+        headerTitleStyle: {
+          color: 'white',
+        },
       }}>
-      <Screen name={ABOUT} component={About} />
+      <Screen name={ABOUT} component={AboutUs} />
     </Navigator>
   )
 }

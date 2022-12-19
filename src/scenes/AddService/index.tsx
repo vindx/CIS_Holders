@@ -277,7 +277,6 @@ const AddService = () => {
                   </View>
                 )}
                 <TouchableOpacity
-                  // disabled
                   style={styles.photoButton}
                   onPress={handleOpenGallery}>
                   <Ionic name="image-outline" size={40} color="#81b0ff" />

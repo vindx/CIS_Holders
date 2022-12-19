@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
-import { ActivityIndicator, StyleSheet, View, Text } from 'react-native'
+import { ActivityIndicator, View, Text } from 'react-native'
 
+import styles from './styles'
 import { IProgressPanelProps } from './types'
 
 const ProgressPanel: FC<IProgressPanelProps> = ({
@@ -39,28 +40,5 @@ const ProgressPanel: FC<IProgressPanelProps> = ({
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  progressPanel: {
-    position: 'absolute',
-    bottom: 0,
-    width: '100%',
-    height: 100,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    backgroundColor: 'lightgray',
-    opacity: 0.8,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  successText: {
-    color: 'green',
-    fontSize: 16,
-  },
-  errorText: {
-    color: 'red',
-    fontSize: 16,
-  },
-})
 
 export default ProgressPanel

@@ -19,3 +19,10 @@ export interface IService {
   address: IAddress
   imageUrl?: string
 }
+
+export interface IAboutUs {
+  id: string
+  title: string
+  description: string
+  imageUrl: string
+}

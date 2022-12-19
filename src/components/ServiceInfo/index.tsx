@@ -1,11 +1,8 @@
 import React, { FC } from 'react'
-import { Image, StyleSheet, Text } from 'react-native'
+import { Image, Text } from 'react-native'
 
-import { IService } from '~types'
-
-interface IServiceInfoProps {
-  service: IService
-}
+import styles from './styles'
+import { IServiceInfoProps } from './types'
 
 const ServiceInfo: FC<IServiceInfoProps> = ({ service }) => {
   return (
@@ -21,21 +18,5 @@ const ServiceInfo: FC<IServiceInfoProps> = ({ service }) => {
     </>
   )
 }
-
-const styles = StyleSheet.create({
-  text: {
-    color: 'black',
-    fontSize: 18,
-    paddingVertical: 15,
-  },
-  image: {
-    borderColor: 'lightgray',
-    borderWidth: 2,
-    borderRadius: 50,
-    width: 80,
-    aspectRatio: 1,
-    resizeMode: 'contain',
-  },
-})
 
 export default ServiceInfo

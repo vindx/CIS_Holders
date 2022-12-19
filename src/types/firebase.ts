@@ -13,3 +13,9 @@ export interface IServiceFB {
   name: string
   type: FirebaseFirestoreTypes.DocumentReference<IServiceTypeFB>
 }
+
+export interface IAboutUsFB {
+  title: string
+  description: string
+  imageUrl: string
+}
