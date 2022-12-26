@@ -13,9 +13,15 @@ interface IModalProps {
   isOpen: boolean
   onClose: () => void
   children?: React.ReactNode
+  hideCloseButton?: boolean
 }
 
-const Modal: FC<IModalProps> = ({ isOpen = false, onClose, children }) => (
+const Modal: FC<IModalProps> = ({
+  isOpen = false,
+  onClose,
+  children,
+  hideCloseButton = false,
+}) => (
   <ModalRN
     animationType="fade"
     transparent={true}
@@ -24,11 +30,13 @@ const Modal: FC<IModalProps> = ({ isOpen = false, onClose, children }) => (
     <View style={styles.wrapper}>
       <View style={styles.modalView}>
         {children}
-        <TouchableOpacity
-          style={[styles.button, styles.buttonClose]}
-          onPress={onClose}>
-          <Text style={styles.textStyle}>Закрыть</Text>
-        </TouchableOpacity>
+        {!hideCloseButton && (
+          <TouchableOpacity
+            style={[styles.button, styles.buttonClose]}
+            onPress={onClose}>
+            <Text style={styles.textStyle}>Закрыть</Text>
+          </TouchableOpacity>
+        )}
       </View>
       <Pressable style={styles.background} onPress={onClose} />
     </View>

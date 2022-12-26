@@ -5,6 +5,7 @@ import RNBootSplash from 'react-native-bootsplash'
 import Router from '~router'
 import store from '~store'
 import { ServiceModalProvider } from '~context/ServiceModal'
+import { FiltersModalProvider } from '~context/FiltersModal'
 
 const App = () => {
   useEffect(() => {
@@ -13,9 +14,11 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <ServiceModalProvider>
-        <Router />
-      </ServiceModalProvider>
+      <FiltersModalProvider>
+        <ServiceModalProvider>
+          <Router />
+        </ServiceModalProvider>
+      </FiltersModalProvider>
     </Provider>
   )
 }

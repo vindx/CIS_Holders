@@ -8,10 +8,11 @@ import {
 
 import { IService } from '~types'
 
-import { IListState } from '../types'
+import { IListState, IServicesListFilters } from '../types'
 
-const initialState: IListState<IService[]> = {
+const initialState: IListState<IService[], IServicesListFilters> = {
   list: [],
+  filters: {},
   error: null,
   isLoaded: false,
   isLoading: false,
@@ -19,9 +20,10 @@ const initialState: IListState<IService[]> = {
 }
 
 const reducer = createReducer(initialState, builder => {
-  builder.addCase(servicesRequest, state => ({
+  builder.addCase(servicesRequest, (state, action) => ({
     ...state,
     list: [],
+    filters: action.payload,
     isLoading: true,
     isLoaded: false,
     error: null,

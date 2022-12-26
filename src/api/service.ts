@@ -8,10 +8,27 @@ import { IServiceFB, IService, IServiceTypeFB } from '~types'
 
 import { getServiceTypeByRefAPI } from './'
 
-export const getServicesListAPI = async () => {
-  const snapshot = await firestore()
-    .collection<IServiceFB>(SERVICES_COLLECTION)
-    .get()
+export const getServicesListAPI = async (typeIds?: string[] | 'all') => {
+  let snapshot
+
+  if (typeIds && typeIds !== 'all' && typeIds.length > 0) {
+    const typeRefs = await Promise.all(
+      typeIds.map(id =>
+        firestore()
+          .collection<IServiceTypeFB>(SERVICE_TYPES_COLLECTION)
+          .doc(id),
+      ),
+    )
+
+    snapshot = await firestore()
+      .collection<IServiceFB>(SERVICES_COLLECTION)
+      .where('type', 'in', typeRefs)
+      .get()
+  } else {
+    snapshot = await firestore()
+      .collection<IServiceFB>(SERVICES_COLLECTION)
+      .get()
+  }
 
   const services = await Promise.all(
     snapshot.docs.map(async doc => {

@@ -22,7 +22,6 @@ export const createService = async ({
     })
     typeof onSuccessCallback === 'function' && onSuccessCallback()
   } catch (err) {
-    console.log(err)
     typeof onErrorCallback === 'function' && onErrorCallback()
   }
 }

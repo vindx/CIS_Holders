@@ -8,7 +8,12 @@ import {
 
 import { IService, IError } from '~types'
 
-export const servicesRequest = createAction(SERVICES_REQUEST)
+import { IServicesListFilters } from '../types'
+
+export const servicesRequest = createAction(
+  SERVICES_REQUEST,
+  (filters?: IServicesListFilters) => ({ payload: filters }),
+)
 
 export const servicesResponse = createAction(
   SERVICES_RESPONSE,

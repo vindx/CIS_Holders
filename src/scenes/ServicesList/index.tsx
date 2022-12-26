@@ -17,13 +17,13 @@ import { ErrorText, HeaderText, ItemText, Wrapper, styles } from './styles'
 
 const ServicesList = () => {
   const dispatch = useDispatch()
-  const { isLoading, error } = useSelector(servicesStateSelector)
+  const { isLoading, error, filters } = useSelector(servicesStateSelector)
   const list = useSelector(servicesSectionListSelector)
   const { setModalData } = useServiceModal()
 
   const loadServicesList = useCallback(
-    () => dispatch(servicesRequest()),
-    [dispatch],
+    () => dispatch(servicesRequest(filters)),
+    [dispatch, filters],
   )
 
   useEffect(() => {

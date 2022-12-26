@@ -7,8 +7,9 @@ interface IState {
   isInitialized: boolean
 }
 
-export interface IListState<T> extends IState {
+export interface IListState<T, F = {}> extends IState {
   list: T
+  filters?: F
 }
 
 export interface IDataState<T> extends IState {

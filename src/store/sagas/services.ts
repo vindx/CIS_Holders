@@ -1,13 +1,19 @@
 import { call, put, takeLatest } from 'redux-saga/effects'
 
 import { SERVICES_REQUEST } from '~constants/actions'
-import { servicesResponse, servicesResponseFail } from '~store/actions'
+import {
+  servicesRequest,
+  servicesResponse,
+  servicesResponseFail,
+} from '~store/actions'
 import { getServicesListAPI } from '~api'
 import { IService } from '~types'
 
-function* watchGetServices(): Generator<unknown, any, IService[]> {
+function* watchGetServices(
+  action: ReturnType<typeof servicesRequest>,
+): Generator<unknown, any, IService[]> {
   try {
-    const services = yield call(getServicesListAPI)
+    const services = yield call(getServicesListAPI, action.payload?.typeIds)
 
     yield put(servicesResponse(services))
   } catch (error) {

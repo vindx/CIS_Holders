@@ -1,17 +1,17 @@
 import React, { FC } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import Ionic from 'react-native-vector-icons/Ionicons'
 
 import {
   BottomTabHeaderProps,
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs'
 
-import Ionic from 'react-native-vector-icons/Ionicons'
-
 import AddService from '~scenes/AddService'
 import ServicesList from '~scenes/ServicesList'
 import ServicesMap from '~scenes/ServicesMap'
 import { ADD_SERVICE, MAP, SERVICES_LIST } from '~constants/navigation'
+import { useFiltersModal } from '~context/FiltersModal'
 
 const styles = StyleSheet.create({
   addIcon: {
@@ -28,6 +28,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginLeft: 10,
   },
+  filtersBtn: {
+    position: 'absolute',
+    right: 10,
+  },
 })
 
 interface ICustomHeaderProps extends BottomTabHeaderProps {
@@ -35,12 +39,20 @@ interface ICustomHeaderProps extends BottomTabHeaderProps {
 }
 
 const CustomHeader: FC<ICustomHeaderProps> = props => {
+  const { setIsOpened: openFiltersModal } = useFiltersModal()
+  const filterBtnDisplayed = [SERVICES_LIST, MAP].includes(props.route.name)
+
   return (
     <View style={styles.headerContainer}>
       <TouchableOpacity onPress={props.toggleDrawer}>
         <Ionic name="menu-outline" size={32} />
       </TouchableOpacity>
       <Text style={styles.headerText}>{props.route.name}</Text>
+      {filterBtnDisplayed && (
+        <TouchableOpacity style={styles.filtersBtn} onPress={openFiltersModal}>
+          <Ionic name="filter-outline" size={32} />
+        </TouchableOpacity>
+      )}
     </View>
   )
 }
