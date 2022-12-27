@@ -2,9 +2,11 @@ import React, { FC } from 'react'
 import {
   Modal as ModalRN,
   Pressable,
+  StyleProp,
   Text,
   TouchableOpacity,
   View,
+  ViewStyle,
 } from 'react-native'
 
 import styles from './styles'
@@ -14,6 +16,7 @@ interface IModalProps {
   onClose: () => void
   children?: React.ReactNode
   hideCloseButton?: boolean
+  containerStyles?: StyleProp<ViewStyle>
 }
 
 const Modal: FC<IModalProps> = ({
@@ -21,6 +24,7 @@ const Modal: FC<IModalProps> = ({
   onClose,
   children,
   hideCloseButton = false,
+  containerStyles,
 }) => (
   <ModalRN
     animationType="fade"
@@ -28,7 +32,7 @@ const Modal: FC<IModalProps> = ({
     visible={isOpen}
     onRequestClose={onClose}>
     <View style={styles.wrapper}>
-      <View style={styles.modalView}>
+      <View style={[styles.modalView, containerStyles]}>
         {children}
         {!hideCloseButton && (
           <TouchableOpacity

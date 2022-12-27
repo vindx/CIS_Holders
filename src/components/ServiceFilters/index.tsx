@@ -15,7 +15,7 @@ import {
   servicesStateSelector,
 } from '~store/selectors'
 
-import { servicesRequest, serviceTypesRequest } from '~store/actions'
+import { servicesChangeFilters, serviceTypesRequest } from '~store/actions'
 import { IServiceType } from '~types'
 
 import styles from './styles'
@@ -57,7 +57,7 @@ const ServiceFilters: FC<IServiceFilters> = ({ closeModal }) => {
   }
 
   const handleAcceptFilters = () => {
-    dispatch(servicesRequest({ typeIds: selectedTypeIds }))
+    dispatch(servicesChangeFilters({ typeIds: selectedTypeIds }))
     typeof closeModal === 'function' && closeModal()
   }
 

@@ -1,19 +1,29 @@
-import { call, put, takeLatest } from 'redux-saga/effects'
+import { call, put, select, takeLatest } from 'redux-saga/effects'
 
-import { SERVICES_REQUEST } from '~constants/actions'
-import {
-  servicesRequest,
-  servicesResponse,
-  servicesResponseFail,
-} from '~store/actions'
-import { getServicesListAPI } from '~api'
 import { IService } from '~types'
+import { SERVICES_REQUEST } from '~constants/actions'
+import { SEVICE_SORTING_KEY } from '~constants/asyncStorage'
+import { TSortValue } from '~constants/firestore'
+import { asyncStorage } from '~utils/helpers'
+import { getServicesListAPI } from '~api'
+import { servicesFiltersSelector } from '~store/selectors'
+import { servicesResponse, servicesResponseFail } from '~store/actions'
 
-function* watchGetServices(
-  action: ReturnType<typeof servicesRequest>,
-): Generator<unknown, any, IService[]> {
+import { IServicesListFilters } from '../types'
+
+function* watchGetServices() {
   try {
-    const services = yield call(getServicesListAPI, action.payload?.typeIds)
+    const filters: IServicesListFilters = yield select(servicesFiltersSelector)
+    const sorting: TSortValue | undefined = yield call(
+      asyncStorage.getData,
+      SEVICE_SORTING_KEY,
+    )
+
+    const services: IService[] = yield call(
+      getServicesListAPI,
+      filters,
+      sorting,
+    )
 
     yield put(servicesResponse(services))
   } catch (error) {

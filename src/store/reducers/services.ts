@@ -4,6 +4,7 @@ import {
   servicesRequest,
   servicesResponse,
   servicesResponseFail,
+  servicesChangeFilters,
 } from '~store/actions'
 
 import { IService } from '~types'
@@ -12,7 +13,6 @@ import { IListState, IServicesListFilters } from '../types'
 
 const initialState: IListState<IService[], IServicesListFilters> = {
   list: [],
-  filters: {},
   error: null,
   isLoaded: false,
   isLoading: false,
@@ -20,10 +20,9 @@ const initialState: IListState<IService[], IServicesListFilters> = {
 }
 
 const reducer = createReducer(initialState, builder => {
-  builder.addCase(servicesRequest, (state, action) => ({
+  builder.addCase(servicesRequest, state => ({
     ...state,
     list: [],
-    filters: action.payload,
     isLoading: true,
     isLoaded: false,
     error: null,
@@ -46,6 +45,11 @@ const reducer = createReducer(initialState, builder => {
     list: [],
     error: action.payload,
     isInitialized: true,
+  }))
+
+  builder.addCase(servicesChangeFilters, (state, action) => ({
+    ...state,
+    filters: action.payload,
   }))
 })
 

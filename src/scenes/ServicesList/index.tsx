@@ -22,13 +22,13 @@ const ServicesList = () => {
   const { setModalData } = useServiceModal()
 
   const loadServicesList = useCallback(
-    () => dispatch(servicesRequest(filters)),
-    [dispatch, filters],
+    () => dispatch(servicesRequest()),
+    [dispatch],
   )
 
   useEffect(() => {
     loadServicesList()
-  }, [loadServicesList])
+  }, [loadServicesList, filters])
 
   if (error) {
     return (

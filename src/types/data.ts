@@ -18,6 +18,7 @@ export interface IService {
   type: IServiceType
   address: IAddress
   imageUrl?: string
+  createdDate: string
 }
 
 export interface IAboutUs {

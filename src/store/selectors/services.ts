@@ -8,6 +8,11 @@ export const servicesStateSelector = createSelector(
   state => state.services,
 )
 
+export const servicesFiltersSelector = createSelector(
+  servicesStateSelector,
+  state => state.filters,
+)
+
 export const servicesSectionListSelector = createSelector(
   servicesStateSelector,
   state => {

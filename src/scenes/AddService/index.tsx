@@ -10,24 +10,20 @@ import {
   View,
 } from 'react-native'
 
-import Ionic from 'react-native-vector-icons/Ionicons'
-import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps'
-import { useForm, Controller } from 'react-hook-form'
-import { useDispatch, useSelector } from 'react-redux'
-
 import {
   ImagePickerResponse,
   launchCamera,
   launchImageLibrary,
 } from 'react-native-image-picker'
 
-import {
-  servicesStateSelector,
-  serviceTypesPickerSelector,
-} from '~store/selectors'
+import Ionic from 'react-native-vector-icons/Ionicons'
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps'
+import { useForm, Controller } from 'react-hook-form'
+import { useDispatch, useSelector } from 'react-redux'
 
 import Picker from '~components/Picker'
 import ProgressPanel from '~components/ProgressPanel'
+import { serviceTypesPickerSelector } from '~store/selectors'
 import { servicesRequest, serviceTypesRequest } from '~store/actions'
 
 import styles from './styles'
@@ -46,7 +42,6 @@ const AddService = () => {
   const [isMap, setIsMap] = useState(false)
   const [additingState, setAdditingState] = useState(additingInitState)
   const serviceTypes = useSelector(serviceTypesPickerSelector)
-  const { filters } = useSelector(servicesStateSelector)
 
   useEffect(() => {
     dispatch(serviceTypesRequest())
@@ -108,7 +103,7 @@ const AddService = () => {
           inProgress: false,
           succeed: true,
         }))
-        dispatch(servicesRequest(filters))
+        dispatch(servicesRequest())
         resetPanel()
       },
       onErrorCallback() {

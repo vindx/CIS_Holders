@@ -12,6 +12,7 @@ export interface IServiceFB {
   description?: string
   name: string
   type: FirebaseFirestoreTypes.DocumentReference<IServiceTypeFB>
+  createdDate: FirebaseFirestoreTypes.Timestamp
 }
 
 export interface IAboutUsFB {

@@ -1,3 +1,4 @@
+import * as asyncStorage from './asyncStorage'
 import getMarkerIcon from './getMarkerIcon'
 
-export { getMarkerIcon }
+export { getMarkerIcon, asyncStorage }
