@@ -125,18 +125,26 @@ const AddService = () => {
         </Text>
         <Controller
           control={control}
-          render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput
-              style={styles.input}
-              placeholder="Taco Bell"
-              placeholderTextColor="gray"
-              onBlur={onBlur}
-              onChangeText={v => onChange(v)}
-              value={value}
-            />
+          render={({
+            field: { onChange, onBlur, value },
+            fieldState: { isTouched, error },
+          }) => (
+            <>
+              <TextInput
+                style={styles.input}
+                placeholder="Taco Bell"
+                placeholderTextColor="gray"
+                onBlur={onBlur}
+                onChangeText={v => onChange(v)}
+                value={value}
+              />
+              {isTouched && !value && (
+                <Text style={styles.inputErrorMsg}>{error?.message}</Text>
+              )}
+            </>
           )}
           name="name"
-          rules={{ required: true }}
+          rules={{ required: 'Обязательное поле' }}
         />
         <Text style={styles.label}>Описание</Text>
         <Controller
@@ -219,7 +227,7 @@ const AddService = () => {
                   onChangeText={v => onChange({ ...value, latitude: v })}
                   keyboardType="numeric"
                   value={String(value.latitude || '')}
-                  maxLength={25}
+                  maxLength={5}
                 />
                 <Text style={styles.label}>
                   Долгота <Text style={styles.required}>*</Text>
@@ -232,7 +240,7 @@ const AddService = () => {
                   onChangeText={v => onChange({ ...value, longitude: v })}
                   keyboardType="numeric"
                   value={String(value.longitude || '')}
-                  maxLength={25}
+                  maxLength={5}
                 />
               </>
             )

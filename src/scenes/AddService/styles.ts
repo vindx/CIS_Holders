@@ -73,4 +73,8 @@ export default StyleSheet.create({
     aspectRatio: 1,
     resizeMode: 'contain',
   },
+  inputErrorMsg: {
+    color: 'red',
+    marginLeft: 10,
+  },
 })
