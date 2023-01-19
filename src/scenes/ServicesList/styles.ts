@@ -1,34 +1,4 @@
-import styled from 'styled-components/native'
 import { StyleSheet } from 'react-native'
-
-export const ErrorText = styled.Text`
-  color: red;
-  font-size: 20px;
-`
-
-export const Wrapper = styled.View`
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-`
-
-export const LoadingText = styled.Text`
-  color: black;
-  font-size: 20px;
-`
-
-export const HeaderText = styled.Text`
-  color: black;
-  font-size: 24px;
-  margin-bottom: 20px;
-  text-align: center;
-  background: yellow;
-`
-
-export const ItemText = styled.Text`
-  color: black;
-  font-size: 20px;
-`
 
 export const styles = StyleSheet.create({
   itemWrapper: {
@@ -36,5 +6,29 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginHorizontal: 20,
     marginBottom: 20,
+  },
+  itemText: {
+    color: 'black',
+    fontSize: 20,
+  },
+  errorWrapper: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  errorText: {
+    color: 'red',
+    fontSize: 20,
+  },
+  loadingText: {
+    color: 'black',
+    fontSize: 20,
+  },
+  headerText: {
+    color: 'black',
+    fontSize: 24,
+    marginBottom: 20,
+    textAlign: 'center',
+    backgroundColor: 'yellow',
   },
 })

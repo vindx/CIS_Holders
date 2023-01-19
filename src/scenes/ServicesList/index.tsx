@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useEffect } from 'react'
-import { SectionList, TouchableOpacity, View } from 'react-native'
+import { SectionList, TouchableOpacity, Text, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import Ionic from 'react-native-vector-icons/Ionicons'
 
@@ -8,12 +8,12 @@ import {
   servicesSectionListSelector,
 } from '~store/selectors'
 
-import MainView from '~styles/MainView'
+import MainView from '~components/MainView'
 import { IService } from '~types'
 import { servicesRequest } from '~store/actions'
 import { useServiceModal } from '~context/ServiceModal'
 
-import { ErrorText, HeaderText, ItemText, Wrapper, styles } from './styles'
+import { styles } from './styles'
 
 const ServicesList = () => {
   const dispatch = useDispatch()
@@ -33,16 +33,16 @@ const ServicesList = () => {
   if (error) {
     return (
       <MainView>
-        <Wrapper>
-          <ErrorText>{error?.message}</ErrorText>
-        </Wrapper>
+        <View style={styles.errorWrapper}>
+          <Text style={styles.errorText}>{error?.message}</Text>
+        </View>
       </MainView>
     )
   }
 
   const Item: FC<{ serviceData: IService }> = ({ serviceData }) => (
     <View style={styles.itemWrapper}>
-      <ItemText>{serviceData.name}</ItemText>
+      <Text style={styles.itemText}>{serviceData.name}</Text>
       <TouchableOpacity onPress={() => setModalData(serviceData)}>
         <Ionic name="information-circle-outline" color="gray" size={26} />
       </TouchableOpacity>
@@ -51,7 +51,7 @@ const ServicesList = () => {
 
   const Header: FC<{ typeData: { id: string; name: string } }> = ({
     typeData,
-  }) => <HeaderText>{typeData.name}</HeaderText>
+  }) => <Text style={styles.headerText}>{typeData.name}</Text>
 
   return (
     <MainView>
