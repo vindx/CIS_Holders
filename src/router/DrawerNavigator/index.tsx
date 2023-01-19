@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text } from 'react-native'
+import { Text } from 'react-native'
 
 import {
   createDrawerNavigator,
@@ -8,28 +8,17 @@ import {
   DrawerContentComponentProps,
 } from '@react-navigation/drawer'
 
-import AboutStackNavigator from './stackNavigators/AboutStackNavigator'
-import BottomTabNavigator from './BottomTabNavigator'
 import {
   ABOUT,
   ABOUT_PAGE_NAVIGATOR,
   ROOT_NAVIGATOR,
 } from '~constants/navigation'
 
-import { TRootRouteParams, TRootNavigatorList } from './types'
+import AboutStackNavigator from '../AboutStackNavigator'
+import BottomTabNavigator from '../BottomTabNavigator'
+import { TRootRouteParams, TRootNavigatorList } from '../types'
 
-const styles = StyleSheet.create({
-  drawer: {
-    backgroundColor: 'lightgray',
-    borderTopRightRadius: 10,
-    borderBottomRightRadius: 10,
-    marginVertical: 5,
-  },
-  drawerItemText: {
-    color: 'gray',
-    fontSize: 18,
-  },
-})
+import styles from './styles'
 
 const CustomDrawerContent = (props: DrawerContentComponentProps) => {
   return (

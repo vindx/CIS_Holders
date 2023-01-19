@@ -13,7 +13,7 @@ import { IService } from '~types'
 import { servicesRequest } from '~store/actions'
 import { useServiceModal } from '~context/ServiceModal'
 
-import { styles } from './styles'
+import styles from './styles'
 
 const ServicesList = () => {
   const dispatch = useDispatch()

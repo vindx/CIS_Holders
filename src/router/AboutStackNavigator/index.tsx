@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, TouchableOpacity } from 'react-native'
+import { TouchableOpacity } from 'react-native'
 import {
   createStackNavigator,
   StackNavigationProp,
@@ -10,6 +10,8 @@ import Ionic from 'react-native-vector-icons/Ionicons'
 import AboutUs from '~scenes/AboutUs'
 import { ABOUT, ROOT_NAVIGATOR } from '~constants/navigation'
 import { TRootNavigatorList } from '~router/types'
+
+import styles from './styles'
 
 const CustomHeaderLeft = () => {
   const { canGoBack, goBack, navigate } =
@@ -44,9 +46,5 @@ const AboutStackNavigator = () => {
     </Navigator>
   )
 }
-
-const styles = StyleSheet.create({
-  goBackButton: { marginLeft: 10 },
-})
 
 export default AboutStackNavigator
