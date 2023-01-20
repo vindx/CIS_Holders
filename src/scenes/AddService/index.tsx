@@ -10,11 +10,7 @@ import {
   View,
 } from 'react-native'
 
-import {
-  ImagePickerResponse,
-  launchCamera,
-  launchImageLibrary,
-} from 'react-native-image-picker'
+import { ImagePickerResponse } from 'react-native-image-picker'
 
 import Ionic from 'react-native-vector-icons/Ionicons'
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps'
@@ -31,6 +27,7 @@ import {
 
 import { serviceCreateRequest, serviceTypesRequest } from '~store/actions'
 import { IServiceCreate } from '~types'
+import { ImagePicker } from '~utils/helpers'
 
 import styles from './styles'
 
@@ -68,23 +65,11 @@ const AddService = () => {
   }
 
   const handleOpenCamera = async () => {
-    launchCamera(
-      {
-        mediaType: 'photo',
-        saveToPhotos: true,
-      },
-      handleChooseImage,
-    )
+    ImagePicker.openCamera(handleChooseImage)
   }
 
   const handleOpenGallery = async () => {
-    launchImageLibrary(
-      {
-        mediaType: 'photo',
-        selectionLimit: 1,
-      },
-      handleChooseImage,
-    )
+    ImagePicker.openGallery(handleChooseImage)
   }
 
   const onSubmit = (data: IServiceCreate) => {

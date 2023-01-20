@@ -8,7 +8,7 @@ import { DATE_SORT, NAME_SORT } from '~constants/firestore'
 import { MAP, SERVICES_LIST } from '~constants/navigation'
 import { SEVICE_SORTING_KEY } from '~constants/asyncStorage'
 import { TSortValue } from '~constants/firestore'
-import { asyncStorage } from '~utils/helpers'
+import { AsyncStorage } from '~utils/helpers'
 import { servicesRequest } from '~store/actions'
 import { useFiltersModal } from '~context/FiltersModal'
 
@@ -36,7 +36,7 @@ const CustomHeader: FC<ICustomHeaderProps> = props => {
   useEffect(() => {
     if (!modalIsOpened) {
       const updateSortValue = async () => {
-        const value = await asyncStorage.getData<TSortValue>(SEVICE_SORTING_KEY)
+        const value = await AsyncStorage.getData<TSortValue>(SEVICE_SORTING_KEY)
         setSortValue(value)
       }
       updateSortValue()
@@ -47,7 +47,7 @@ const CustomHeader: FC<ICustomHeaderProps> = props => {
 
   const handleSetSorting = useCallback(
     async (value: TSortValue) => {
-      await asyncStorage.storeData(SEVICE_SORTING_KEY, value)
+      await AsyncStorage.storeData(SEVICE_SORTING_KEY, value)
       dispatch(servicesRequest())
       toggleIsOpened()
     },

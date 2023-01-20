@@ -1,4 +1,5 @@
-import * as asyncStorage from './asyncStorage'
+import AsyncStorage from './asyncStorage'
 import getMarkerIcon from './getMarkerIcon'
+import ImagePicker from './imagePicker'
 
-export { getMarkerIcon, asyncStorage }
+export { getMarkerIcon, AsyncStorage, ImagePicker }
