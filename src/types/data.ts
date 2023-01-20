@@ -27,3 +27,9 @@ export interface IAboutUs {
   description: string
   imageUrl: string
 }
+
+export interface IServiceCreate
+  extends Omit<IService, 'id' | 'type' | 'imageUrl'> {
+  typeId: string
+  rawImagePath?: string
+}

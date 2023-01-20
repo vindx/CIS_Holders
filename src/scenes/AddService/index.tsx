@@ -23,25 +23,22 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import Picker from '~components/Picker'
 import ProgressPanel from '~components/ProgressPanel'
-import { serviceTypesPickerSelector } from '~store/selectors'
-import { servicesRequest, serviceTypesRequest } from '~store/actions'
+
+import {
+  serviceStateSelector,
+  serviceTypesPickerSelector,
+} from '~store/selectors'
+
+import { serviceCreateRequest, serviceTypesRequest } from '~store/actions'
+import { IServiceCreate } from '~types'
 
 import styles from './styles'
-import { IFormValues } from './types'
-import { createService } from './utils'
-
-const additingInitState = {
-  init: false,
-  inProgress: false,
-  withError: false,
-  succeed: false,
-}
 
 const AddService = () => {
   const dispatch = useDispatch()
   const [isMap, setIsMap] = useState(false)
-  const [additingState, setAdditingState] = useState(additingInitState)
   const serviceTypes = useSelector(serviceTypesPickerSelector)
+  const { isLoading } = useSelector(serviceStateSelector)
 
   useEffect(() => {
     dispatch(serviceTypesRequest())
@@ -52,7 +49,7 @@ const AddService = () => {
     control,
     formState: { isValid },
     setValue,
-  } = useForm<IFormValues>({
+  } = useForm<IServiceCreate>({
     defaultValues: {
       address: {},
     },
@@ -85,36 +82,8 @@ const AddService = () => {
     )
   }
 
-  const onSubmit = (data: IFormValues) => {
-    setAdditingState(prevState => ({
-      ...prevState,
-      init: true,
-      inProgress: true,
-    }))
-
-    const resetPanel = () =>
-      setTimeout(() => setAdditingState(additingInitState), 2000)
-
-    createService({
-      formValues: data,
-      onSuccessCallback() {
-        setAdditingState(prevState => ({
-          ...prevState,
-          inProgress: false,
-          succeed: true,
-        }))
-        dispatch(servicesRequest())
-        resetPanel()
-      },
-      onErrorCallback() {
-        setAdditingState(prevState => ({
-          ...prevState,
-          inProgress: false,
-          withError: true,
-        }))
-        resetPanel()
-      },
-    })
+  const onSubmit = (data: IServiceCreate) => {
+    dispatch(serviceCreateRequest(data))
   }
 
   return (
@@ -305,13 +274,7 @@ const AddService = () => {
         </View>
       </ScrollView>
 
-      {additingState.init && (
-        <ProgressPanel
-          inProgress={additingState.inProgress}
-          succeed={additingState.succeed}
-          withError={additingState.withError}
-        />
-      )}
+      {isLoading && <ProgressPanel inProgress={isLoading} />}
     </>
   )
 }

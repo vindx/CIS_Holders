@@ -1,4 +1,11 @@
-import { ABOUT_PAGE_NAVIGATOR, ROOT_NAVIGATOR } from '~constants/navigation'
+import {
+  ABOUT_PAGE_NAVIGATOR,
+  ROOT_NAVIGATOR,
+  ABOUT,
+  ADD_SERVICE,
+  MAP,
+  SERVICES_LIST,
+} from '~constants/navigation'
 
 export type TRootRouteParams =
   | {
@@ -10,4 +17,11 @@ export type TRootRouteParams =
 export type TRootNavigatorList = {
   [ROOT_NAVIGATOR]: TRootRouteParams
   [ABOUT_PAGE_NAVIGATOR]: TRootRouteParams
+}
+
+export type TRouteNamesList = {
+  [ABOUT]: undefined
+  [ADD_SERVICE]: undefined
+  [MAP]: undefined
+  [SERVICES_LIST]: undefined
 }
