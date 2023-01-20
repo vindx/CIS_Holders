@@ -38,7 +38,7 @@ const AddService = () => {
   const dispatch = useDispatch()
   const [isMap, setIsMap] = useState(false)
   const serviceTypes = useSelector(serviceTypesPickerSelector)
-  const { isLoading } = useSelector(serviceStateSelector)
+  const { isLoading, isLoaded } = useSelector(serviceStateSelector)
 
   useEffect(() => {
     dispatch(serviceTypesRequest())
@@ -49,11 +49,16 @@ const AddService = () => {
     control,
     formState: { isValid },
     setValue,
+    reset,
   } = useForm<IServiceCreate>({
     defaultValues: {
       address: {},
     },
   })
+
+  useEffect(() => {
+    reset()
+  }, [isLoaded, reset])
 
   const handleChooseImage = (response: ImagePickerResponse) => {
     if (response.assets) {

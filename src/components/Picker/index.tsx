@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useMemo, useState } from 'react'
 import {
   Modal,
   Pressable,
@@ -18,11 +18,22 @@ const Picker: FC<IPickerProps> = ({
   selectedValue,
   onValueChange,
 }) => {
-  const [choosedData, setChoosedData] = useState<IPickerDataState>({
-    label: placeholder || 'Select item',
-    value: selectedValue || null,
-  })
+  const initState: IPickerDataState = useMemo(
+    () => ({
+      label: placeholder || 'Select item',
+      value: selectedValue || null,
+    }),
+    [placeholder, selectedValue],
+  )
+
+  const [choosedData, setChoosedData] = useState<IPickerDataState>(initState)
   const [isModalOpened, setIsModalOpened] = useState(false)
+
+  useEffect(() => {
+    if (!selectedValue) {
+      setChoosedData(initState)
+    }
+  }, [initState, selectedValue])
 
   const handleOpenModal = () => setIsModalOpened(true)
   const handleCloseModal = () => setIsModalOpened(false)
